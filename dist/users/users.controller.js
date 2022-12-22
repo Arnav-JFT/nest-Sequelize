@@ -16,6 +16,8 @@ exports.UsersController = void 0;
 const common_1 = require("@nestjs/common");
 const users_service_1 = require("./users.service");
 const data_services_1 = require("./data.services");
+const roles_enum_1 = require("./roles.enum");
+const roles_decorator_1 = require("./roles.decorator");
 let UsersController = class UsersController {
     constructor(usersService, CatService) {
         this.usersService = usersService;
@@ -46,6 +48,7 @@ __decorate([
 ], UsersController.prototype, "jwt", null);
 __decorate([
     (0, common_1.Post)(),
+    (0, roles_decorator_1.Roles)(roles_enum_1.Role.ADMIN),
     __param(0, (0, common_1.Body)("name")),
     __param(1, (0, common_1.Body)("job")),
     __param(2, (0, common_1.Body)("salary")),
@@ -61,6 +64,7 @@ __decorate([
 ], UsersController.prototype, "findAll", null);
 __decorate([
     (0, common_1.Patch)(":id"),
+    (0, roles_decorator_1.Roles)(roles_enum_1.Role.ADMIN),
     __param(0, (0, common_1.Param)("id")),
     __param(1, (0, common_1.Body)("name")),
     __param(2, (0, common_1.Body)("job")),
@@ -71,6 +75,7 @@ __decorate([
 ], UsersController.prototype, "update", null);
 __decorate([
     (0, common_1.Delete)(":id"),
+    (0, roles_decorator_1.Roles)(roles_enum_1.Role.ADMIN),
     __param(0, (0, common_1.Param)("id")),
     __metadata("design:type", Function),
     __metadata("design:paramtypes", [String]),

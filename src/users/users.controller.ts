@@ -9,6 +9,8 @@ import {
 } from "@nestjs/common";
 import { UsersService } from "./users.service";
 import { CatsService } from "./data.services";
+import { Role } from "./roles.enum";
+import { Roles } from "./roles.decorator";
 
 @Controller("users")
 export class UsersController {
@@ -18,6 +20,7 @@ export class UsersController {
     return this.usersService.jwt(user);
   }
   @Post()
+  @Roles(Role.ADMIN)
   create(
     @Body("name") name: string,
     @Body("job") job: string,
@@ -32,6 +35,7 @@ export class UsersController {
   }
 
   @Patch(":id")
+  @Roles(Role.ADMIN)
   update(
     @Param("id") id: number,
     @Body("name") name: string,
@@ -42,6 +46,7 @@ export class UsersController {
   }
 
   @Delete(":id")
+  @Roles(Role.ADMIN)
   async remove(@Param("id") id: string) {
     return await this.CatService.delete(id);
   }

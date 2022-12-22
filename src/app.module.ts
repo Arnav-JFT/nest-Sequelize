@@ -4,9 +4,11 @@ import {
   NestModule,
   RequestMethod,
 } from '@nestjs/common';
+import { APP_GUARD } from '@nestjs/core';
 import { JwtService, JwtModule } from '@nestjs/jwt';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
+import { RolesGuard } from './users/roles.gaurd';
 import { LoggerMiddleware } from './users/user.middleware';
 import { UsersController } from './users/users.controller';
 import { UsersModule } from './users/users.module';
@@ -19,7 +21,7 @@ import { UsersModule } from './users/users.module';
     }),
   ],
   controllers: [AppController],
-  providers: [AppService],
+  providers: [AppService , {provide:APP_GUARD,useClass:RolesGuard}],
 })
 export class AppModule implements NestModule {
   configure(consumer: MiddlewareConsumer) {
